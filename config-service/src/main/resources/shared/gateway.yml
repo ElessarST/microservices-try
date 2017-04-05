@@ -9,3 +9,11 @@ zuul:
         path: /family/**
         stripPrefix: false
         sensitiveHeaders:
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
