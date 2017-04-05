@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true
+
+
+
+server:
+  port: 8886

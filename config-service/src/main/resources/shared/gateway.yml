@@ -1,0 +1,11 @@
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 20000
+
+  routes:
+    family-service:
+        path: /family/**
+        stripPrefix: false
+        sensitiveHeaders:
