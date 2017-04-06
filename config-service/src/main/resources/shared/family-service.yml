@@ -1,1 +1,4 @@
 message: hi
+
+server:
+  context-path: /family

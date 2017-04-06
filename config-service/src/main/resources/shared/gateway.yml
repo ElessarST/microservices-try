@@ -6,9 +6,15 @@ zuul:
 
   routes:
     family-service:
-        path: /family/**
-        stripPrefix: false
-        sensitiveHeaders:
+      path: /family/**
+      serviceId: family-service
+      stripPrefix: false
+      sensitiveHeaders:
+    news-service:
+      path: /news/**
+      serviceId: news-service
+      stripPrefix: false
+      sensitiveHeaders:
 
 hystrix:
   command:
