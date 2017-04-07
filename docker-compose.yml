@@ -1,0 +1,22 @@
+version: '2'
+services:
+  config:
+    build: ./config-service
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+  family-service:
+    build: ./family-service
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - CONFIG_URL=${CONFIG_URL}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    links:
+      - config
