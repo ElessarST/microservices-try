@@ -1,4 +1,0 @@
-allprojects {
-    task hello << { task -> println "$task.project.name" }
-
-}

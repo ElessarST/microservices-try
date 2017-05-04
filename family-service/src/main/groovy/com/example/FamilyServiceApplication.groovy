@@ -1,6 +1,6 @@
 package com.example
 
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker
@@ -21,12 +21,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc
 @EnableFeignClients
 class FamilyServiceApplication {
 
-	@Autowired
-	private NewsService someService
+	@Value('${message:message}')
+	String message
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	def get() {
-		return someService.iFailSometimes()
+		return message
 	}
 
 	static void main(String[] args) {
