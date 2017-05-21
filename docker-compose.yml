@@ -1,58 +1,89 @@
-version: '2.1'
+version: '3'
 services:
   config:
     build: ./config-service
     ports:
-          - 8888:8888
+      - 8888:8888
     restart: always
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8888"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
     logging:
       options:
         max-size: "10m"
         max-file: "10"
+    networks:
+      - backend
   family-service:
     build: ./family-service
     restart: always
-    depends_on:
-      config:
-        condition: service_healthy
     ports:
       - 8080:8080
     environment:
       CONFIG_URL: ${CONFIG_URL}
+      SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+    depends_on:
+      - config
+      - service-registry
+    command: ["./wait-for.sh", "config:8888", "--", "java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
     logging:
       options:
         max-size: "10m"
         max-file: "10"
-    #  service-registry:
-    #    build: ./service-registry
-    #    restart: always
-    #    logging:
-    #      options:
-    #        max-size: "10m"
-    #        max-file: "10"
-    #    ports:
-    #      - 8887:8887
-    #      - 8761:8761
-    #    environment:
-    #      CONFIG_URL: ${CONFIG_URL}
-    #    links:
-    #      - config
-    #  gateway:
-    #    build: ./gateway
-    #    restart: always
-    #    logging:
-    #      options:
-    #        max-size: "10m"
-    #        max-file: "10"
-    #    ports:
-    #      - 8886:8886
-    #    environment:
-    #      CONFIG_URL: ${CONFIG_URL}
-    #    links:
-    #      - service-registry
-    #      - config
+    networks:
+          - backend
+  news-service:
+      build: ./news-service
+      restart: always
+      ports:
+        - 8081:8081
+      environment:
+        CONFIG_URL: ${CONFIG_URL}
+        SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+      depends_on:
+        - config
+        - service-registry
+      command: ["./wait-for.sh", "config:8888", "--", "java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
+      logging:
+        options:
+          max-size: "10m"
+          max-file: "10"
+      networks:
+            - backend
+  service-registry:
+    build: ./service-registry
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    ports:
+      - 8887:8887
+      - 8761:8761
+    environment:
+      CONFIG_URL: ${CONFIG_URL}
+    depends_on:
+      - config
+    command: ["./wait-for.sh", "config:8888", "--", "java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
+    networks:
+          - backend
+  gateway:
+    build: ./gateway
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    ports:
+      - 8886:8886
+    environment:
+      CONFIG_URL: ${CONFIG_URL}
+      SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+    depends_on:
+      - config
+      - service-registry
+    command: ["./wait-for.sh", "config:8888", "--", "./wait-for.sh", "service-registry:8887", "--", "java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
+    networks:
+          - backend
+
+
+networks:
+  backend:
+    driver: bridge

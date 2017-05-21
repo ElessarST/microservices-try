@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Service
 public interface NewsService {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/news")
+    @RequestMapping(method = RequestMethod.GET, value = "/")
     String iFailSometimes();
 
 

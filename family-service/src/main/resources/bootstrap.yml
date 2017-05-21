@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: family-service
+  cloud:
+    config:
+      name: configserver
+      enabled: true
+      uri: ${CONFIG_URL:http://localhost:8888}
+
+management:
+  security:
+    enabled: false

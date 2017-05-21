@@ -20,7 +20,7 @@ class NewsServiceApplication {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	def get() {
-		return "hello"
+		return "hello from news service"
 	}
 
 	static void main(String[] args) {

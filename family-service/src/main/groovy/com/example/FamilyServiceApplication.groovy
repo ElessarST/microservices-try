@@ -1,5 +1,6 @@
 package com.example
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -24,9 +25,12 @@ class FamilyServiceApplication {
 	@Value('${message:message}')
 	String message
 
+	@Autowired
+    NewsService newsService
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	def get() {
-		return message
+		return newsService.iFailSometimes()
 	}
 
 	static void main(String[] args) {
