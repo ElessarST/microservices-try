@@ -3,4 +3,4 @@ spring:
     name: monitoring
   cloud:
     config:
-      uri: ${CONFIG_URL:http://localhost:8081}
+      uri: ${CONFIG_URL:http://localhost:8888}

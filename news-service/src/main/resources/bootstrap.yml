@@ -3,4 +3,4 @@ spring:
     name: news-service
   cloud:
     config:
-      uri: ${CONFIG_URL:http://localhost:8081}
+      uri: ${CONFIG_URL:http://localhost:8888}
