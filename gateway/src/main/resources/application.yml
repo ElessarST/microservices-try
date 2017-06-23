@@ -9,12 +9,12 @@ zuul:
 
   routes:
     family-service:
-      path: /family**
+      path: /family/**
       serviceId: family-service
       stripPrefix: true
       sensitiveHeaders:
     news-service:
-      path: /news**
+      path: /news/**
       serviceId: news-service
       stripPrefix: true
       sensitiveHeaders:

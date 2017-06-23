@@ -55,7 +55,7 @@ services:
         max-size: "10m"
         max-file: "10"
     ports:
-      - 8887:8887
+      - 8087:8087
       - 8761:8761
     environment:
       CONFIG_URL: ${CONFIG_URL}
@@ -73,6 +73,24 @@ services:
         max-file: "10"
     ports:
       - 8886:8886
+    environment:
+      CONFIG_URL: ${CONFIG_URL}
+      SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+    depends_on:
+      - config
+      - service-registry
+    command: ["./wait-for.sh", "config:8888", "--", "./wait-for.sh", "service-registry:8887", "--", "java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
+    networks:
+          - backend
+  monitoring:
+    build: ./monitoring
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    ports:
+      - 8885:8885
     environment:
       CONFIG_URL: ${CONFIG_URL}
       SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}

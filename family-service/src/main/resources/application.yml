@@ -1,3 +1,2 @@
 server:
-  context-path: /family
-
+  port: 8080

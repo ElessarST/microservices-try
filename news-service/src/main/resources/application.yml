@@ -5,5 +5,4 @@ management:
 
 server:
   port: 8081
-  context-path: /news
 
