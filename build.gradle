@@ -1,0 +1,6 @@
+subprojects  {
+    task updateInDocker() {
+        dependsOn "build"
+        println ">> Project is build " + project.name
+    }
+}
