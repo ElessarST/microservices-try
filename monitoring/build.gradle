@@ -28,6 +28,8 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-hystrix-dashboard')
 	compile('org.springframework.cloud:spring-cloud-starter-turbine')
 	compile('org.codehaus.groovy:groovy')
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.springframework.retry:spring-retry')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
