@@ -1,6 +1,23 @@
 subprojects  {
-    task updateInDocker() {
-        dependsOn "build"
-        println ">> Project is build " + project.name
+
+    apply plugin: 'groovy'
+
+    def runDocker = {projectName ->
+
+        def std = new ByteArrayOutputStream()
+        exec {
+            commandLine "docker-compose", "up", "-d", "--no-deps", "--build", "$projectName"
+            standardOutput = std
+        }
+        return projectName + std.toString()
     }
+
+    task updateInDocker() {
+        dependsOn build
+        doLast { task ->
+            println "Project $task.project.name is builded"
+            println runDocker(task.project.name)
+        }
+    }
+
 }
