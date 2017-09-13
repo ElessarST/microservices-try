@@ -1,6 +1,0 @@
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      defaultZone: ${SERVICE_REGISTRY_URL:http://localhost:8087}/eureka

@@ -22,7 +22,6 @@ services:
     depends_on:
       - config
       - service-registry
-    command: ["java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
     logging:
       options:
         max-size: "10m"
@@ -40,7 +39,6 @@ services:
       depends_on:
         - config
         - service-registry
-      command: [ "java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
       logging:
         options:
           max-size: "10m"
@@ -61,7 +59,6 @@ services:
       CONFIG_URL: ${CONFIG_URL}
     depends_on:
       - config
-    command: ["java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
     networks:
           - backend
   gateway:
@@ -79,7 +76,7 @@ services:
     depends_on:
       - config
       - service-registry
-    command: ["java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
+    command: ["./wait-for.sh", "service-registry:8887", "--", "java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
     networks:
           - backend
   monitoring:
@@ -97,7 +94,6 @@ services:
     depends_on:
       - config
       - service-registry
-    command: ["java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
     networks:
           - backend
 

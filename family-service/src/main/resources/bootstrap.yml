@@ -7,11 +7,21 @@ spring:
       enabled: true
       uri: ${CONFIG_URL:http://localhost:8888}
       failFast: true
-            retry:
-              initialInterval: 3000
-              multiplier: 1.3
-              maxInterval: 5000
-              maxAttempts: 20
+      retry:
+        initialInterval: 3000
+        multiplier: 1.3
+        maxInterval: 5000
+        maxAttempts: 20
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${SERVICE_REGISTRY_URL:http://localhost:8087}/eureka
 
 management:
   security:
