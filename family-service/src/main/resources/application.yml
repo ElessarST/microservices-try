@@ -1,2 +1,9 @@
 server:
   port: 8080
+
+
+security:
+    oauth2:
+        resource:
+            userInfoUri: http://auth-server:8000/auth/user
+            preferTokenInfo: false

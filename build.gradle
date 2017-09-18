@@ -13,7 +13,10 @@ subprojects  {
     }
 
     task updateInDocker() {
-        dependsOn clean, build
+        doFirst {
+            clean
+        }
+        dependsOn build
         doLast { task ->
             println "Project $task.project.name is builded"
             println runDocker(task.project.name)

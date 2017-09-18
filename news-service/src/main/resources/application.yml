@@ -6,3 +6,8 @@ management:
 server:
   port: 8081
 
+security:
+    oauth2:
+        resource:
+            userInfoUri: http://${auth-server:localhost}:8000/auth/user
+            preferTokenInfo: false

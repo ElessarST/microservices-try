@@ -6,17 +6,16 @@ zuul:
   host:
     connect-timeout-millis: 20000
     socket-timeout-millis: 20000
+  sensitiveHeaders: Cookie,Set-Cookie
   routes:
     family-service:
       path: /family/**
       serviceId: family-service
       stripPrefix: true
-      sensitiveHeaders:
     news-service:
       path: /news/**
       serviceId: news-service
       stripPrefix: true
-      sensitiveHeaders:
 
 
 hystrix:
@@ -27,3 +26,15 @@ hystrix:
           thread:
             timeoutInMilliseconds: 60000
 
+security:
+    oauth2:
+        client:
+            clientId: app
+            clientSecret: secret
+            accessTokenUri: http://auth-server:8000/auth/ouath/token
+            clientAuthenticationScheme: form
+            scope:
+                - webclient
+        resource:
+            userInfoUri: http://auth-server:8000/auth/user
+            preferTokenInfo: false

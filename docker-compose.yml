@@ -1,5 +1,18 @@
 version: '3'
 services:
+  auth-server:
+    build: ./auth-server
+    ports:
+      - 8000:8000
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    depends_on:
+      - config
+    networks:
+      - backend
   config:
     build: ./config-service
     ports:
@@ -22,6 +35,7 @@ services:
     depends_on:
       - config
       - service-registry
+      - auth-server
     logging:
       options:
         max-size: "10m"
@@ -39,6 +53,7 @@ services:
       depends_on:
         - config
         - service-registry
+        - auth-server
       logging:
         options:
           max-size: "10m"
@@ -76,6 +91,7 @@ services:
     depends_on:
       - config
       - service-registry
+      - auth-server
     command: ["./wait-for.sh", "service-registry:8887", "--", "java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
     networks:
           - backend
