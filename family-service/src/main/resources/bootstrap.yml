@@ -14,15 +14,6 @@ spring:
         maxAttempts: 20
 
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: ${SERVICE_REGISTRY_URL:http://localhost:8087}/eureka
-
 management:
   security:
     enabled: false
