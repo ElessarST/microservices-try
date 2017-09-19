@@ -87,6 +87,11 @@ class AuthServerApplication {
 					.secret("secret")
 					.authorizedGrantTypes("refresh_token", "password", "client_credentials")
 					.scopes("webclient", "mobileclient")
+			.and()
+					.withClient("server")
+					.secret("secret")
+					.authorizedGrantTypes("refresh_token", "password", "client_credentials")
+					.scopes("server")
 		}
 
 

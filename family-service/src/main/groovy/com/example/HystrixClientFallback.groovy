@@ -1,6 +1,7 @@
 package com.example
 
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.PathVariable
 
 /**
  * @author Aydar Farrakhov 
@@ -9,6 +10,11 @@ import org.springframework.stereotype.Service
 @Service
 class HystrixClientFallback implements NewsService{
 
+
+    @Override
+    String iFailSometimes(@PathVariable String name) {
+        return "fail"
+    }
 
     @Override
     String iFailSometimes() {

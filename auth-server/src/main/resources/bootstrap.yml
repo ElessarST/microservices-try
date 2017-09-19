@@ -3,8 +3,6 @@ spring:
     name: auth-service
   cloud:
     config:
-      name: configserver
-      enabled: true
       uri: ${CONFIG_URL:http://localhost:8888}
       failFast: true
       retry:

@@ -2,6 +2,7 @@ package com.example;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Service
 public interface NewsService {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/")
+    @RequestMapping(method = RequestMethod.GET, value = "/{name}")
+    String iFailSometimes(@PathVariable("name") String name);
+
+   @RequestMapping(method = RequestMethod.GET, value = "/")
     String iFailSometimes();
 
 

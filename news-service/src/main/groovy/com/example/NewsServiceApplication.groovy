@@ -10,6 +10,8 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix
 import org.springframework.cloud.security.oauth2.client.feign.OAuth2FeignRequestInterceptor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext
 import org.springframework.security.oauth2.client.OAuth2RestTemplate
@@ -17,6 +19,7 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
@@ -34,12 +37,19 @@ import java.security.Principal
 @EnableResourceServer
 @EnableConfigurationProperties
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 class NewsServiceApplication extends ResourceServerConfigurerAdapter {
 
-	
+
+	@PreAuthorize("#oauth2.hasScope('server')")
+	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
+	def get(@PathVariable String name, Principal principal) {
+		return "hello from news service ${name} ${principal.name}"
+	}
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	def get(Principal principal) {
-		return "hello from news service" + principal.name
+		return "hello from news service ${principal.name}"
 	}
 
 	static void main(String[] args) {
