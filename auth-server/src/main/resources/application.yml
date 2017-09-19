@@ -1,3 +1,8 @@
 server:
   port: 8000
   contextPath: /auth
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
