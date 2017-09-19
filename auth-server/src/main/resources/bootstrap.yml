@@ -1,6 +1,6 @@
 spring:
   application:
-    name: auth-server
+    name: auth-service
   cloud:
     config:
       name: configserver
@@ -17,3 +17,9 @@ spring:
 management:
   security:
     enabled: false
+
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.security: DEBUG
+    com.thoughtmechanix: DEBUG

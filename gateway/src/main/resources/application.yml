@@ -8,6 +8,11 @@ zuul:
     socket-timeout-millis: 20000
   sensitiveHeaders: Cookie,Set-Cookie
   routes:
+    auth-service:
+        path: /auth/**
+        url: http://localhost:8000
+        stripPrefix: false
+        sensitiveHeaders:
     family-service:
       path: /family/**
       serviceId: family-service

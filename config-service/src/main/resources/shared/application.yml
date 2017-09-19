@@ -6,3 +6,9 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: ${SERVICE_REGISTRY_URL:http://localhost:8087}/eureka
+
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://${AUTH_SERVICE:localhost}:8000/auth/users/current
