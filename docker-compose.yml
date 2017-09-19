@@ -27,6 +27,10 @@ services:
         max-file: "10"
     networks:
       - backend
+    environment:
+        CONFIG_URL: ${CONFIG_URL}
+        SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+        AUTH_SERVICE: ${AUTH_SERVICE}
   family-service:
     build: ./family-service
     restart: always
@@ -88,8 +92,6 @@ services:
       - 8886:8886
     environment:
       CONFIG_URL: ${CONFIG_URL}
-      SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
-      AUTH_SERVICE: ${AUTH_SERVICE}
     depends_on:
       - config
       - service-registry
