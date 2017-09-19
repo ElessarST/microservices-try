@@ -1,7 +1,7 @@
 version: '3'
 services:
-  auth-server:
-    build: ./auth-server
+  auth-service:
+    build: ./auth-service
     ports:
       - 8000:8000
     restart: always
@@ -9,8 +9,12 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    environment:
+      CONFIG_URL: ${CONFIG_URL}
+      SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
     depends_on:
       - config
+      - service-registry
     networks:
       - backend
   config:
@@ -32,10 +36,11 @@ services:
     environment:
       CONFIG_URL: ${CONFIG_URL}
       SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+      AUTH_SERVICE: ${AUTH_SERVICE}
     depends_on:
       - config
       - service-registry
-      - auth-server
+      - auth-service
     logging:
       options:
         max-size: "10m"
@@ -50,10 +55,11 @@ services:
       environment:
         CONFIG_URL: ${CONFIG_URL}
         SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+        AUTH_SERVICE: ${AUTH_SERVICE}
       depends_on:
         - config
         - service-registry
-        - auth-server
+        - auth-service
       logging:
         options:
           max-size: "10m"
@@ -88,10 +94,11 @@ services:
     environment:
       CONFIG_URL: ${CONFIG_URL}
       SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+      AUTH_SERVICE: ${AUTH_SERVICE}
     depends_on:
       - config
       - service-registry
-      - auth-server
+      - auth-service
     command: ["./wait-for.sh", "service-registry:8887", "--", "java", "-Djava.security.egd=file:/dev/./urandom","-jar", "app.jar"]
     networks:
           - backend

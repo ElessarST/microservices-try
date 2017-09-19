@@ -1,0 +1,9 @@
+security:
+    oauth2:
+        client:
+            clientId: app
+            clientSecret: secret
+            accessTokenUri: ${AUTH_SERVICE:http://localhost:8000}/auth/oauth/token
+            clientAuthenticationScheme: form
+            scope:
+                - webclient

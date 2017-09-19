@@ -32,11 +32,11 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore
 @EnableResourceServer
 @EnableDiscoveryClient
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-class AuthServerApplication {
+class AuthServiceApplication {
 
 
 	static void main(String[] args) {
-		SpringApplication.run AuthServerApplication, args
+		SpringApplication.run AuthServiceApplication, args
 	}
 
 	@Configuration

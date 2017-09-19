@@ -9,7 +9,7 @@ zuul:
   routes:
     auth-service:
         path: /auth/**
-        url: http://localhost:8000
+        serviceId: auth-service
         stripPrefix: false
         sensitiveHeaders:
     family-service:
@@ -31,16 +31,3 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
-
-security:
-    oauth2:
-        client:
-            clientId: app
-            clientSecret: secret
-            accessTokenUri: http://auth-server:8000/auth/ouath/token
-            clientAuthenticationScheme: form
-            scope:
-                - webclient
-        resource:
-            userInfoUri: http://auth-server:8000/auth/user
-            preferTokenInfo: false
