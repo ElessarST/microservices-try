@@ -10,6 +10,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix
 import org.springframework.cloud.security.oauth2.client.feign.OAuth2FeignRequestInterceptor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -19,6 +20,11 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices
+import org.springframework.security.oauth2.provider.token.TokenStore
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -75,6 +81,32 @@ class NewsServiceApplication extends ResourceServerConfigurerAdapter {
 	@Bean
 	RequestContextListener requestContextListener() {
 		return new RequestContextListener()
+	}
+
+	@Bean
+	TokenStore tokenStore() {
+		return new JwtTokenStore(accessTokenConverter())
+	}
+
+	@Bean
+	JwtAccessTokenConverter accessTokenConverter() {
+		JwtAccessTokenConverter converter = new JwtAccessTokenConverter()
+		converter.setSigningKey("123")
+		return converter
+	}
+
+	@Bean
+	@Primary
+	DefaultTokenServices tokenServices() {
+		DefaultTokenServices defaultTokenServices = new DefaultTokenServices()
+		defaultTokenServices.setTokenStore(tokenStore())
+		defaultTokenServices.setSupportRefreshToken(true)
+		return defaultTokenServices
+	}
+
+	@Override
+	void configure(ResourceServerSecurityConfigurer config) {
+		config.tokenServices(tokenServices())
 	}
 
 	@Override
