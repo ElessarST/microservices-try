@@ -7,6 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.postgresql:postgresql:9.4-1206-jdbc42"
 	}
 }
 
@@ -39,6 +40,8 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.codehaus.groovy:groovy')
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+	compile 'org.postgresql:postgresql:9.4-1206-jdbc42'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
 }

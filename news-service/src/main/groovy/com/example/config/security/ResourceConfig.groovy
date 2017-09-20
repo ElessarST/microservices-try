@@ -1,4 +1,4 @@
-package com.example.config.security.security
+package com.example.config.security
 
 import feign.RequestInterceptor
 import org.springframework.boot.context.properties.ConfigurationProperties
