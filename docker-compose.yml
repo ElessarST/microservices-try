@@ -11,6 +11,8 @@ services:
         max-file: "10"
     environment:
       CONFIG_URL: ${CONFIG_URL}
+      SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+      AUTH_SERVICE: ${AUTH_SERVICE}
     depends_on:
       - config
       - service-registry
@@ -37,7 +39,9 @@ services:
     ports:
       - 8080:8080
     environment:
-      CONFIG_URL: ${CONFIG_URL}
+          CONFIG_URL: ${CONFIG_URL}
+          SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+          AUTH_SERVICE: ${AUTH_SERVICE}
     depends_on:
       - config
       - service-registry
@@ -54,7 +58,9 @@ services:
       ports:
         - 8081:8081
       environment:
-        CONFIG_URL: ${CONFIG_URL}
+            CONFIG_URL: ${CONFIG_URL}
+            SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+            AUTH_SERVICE: ${AUTH_SERVICE}
       depends_on:
         - config
         - service-registry
@@ -76,7 +82,8 @@ services:
       - 8087:8087
       - 8761:8761
     environment:
-      CONFIG_URL: ${CONFIG_URL}
+          CONFIG_URL: ${CONFIG_URL}
+          SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
     depends_on:
       - config
     networks:
@@ -91,7 +98,9 @@ services:
     ports:
       - 8886:8886
     environment:
-      CONFIG_URL: ${CONFIG_URL}
+        CONFIG_URL: ${CONFIG_URL}
+        SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
+        AUTH_SERVICE: ${AUTH_SERVICE}
     depends_on:
       - config
       - service-registry
