@@ -11,4 +11,4 @@ eureka:
 security:
   oauth2:
     resource:
-      user-info-uri: ${AUTH_SERVICE:http://localhost:8000}/auth/users/current
+      user-info-uri: ${AUTH_SERVICE_URL:http://localhost:8000}/auth/users/current

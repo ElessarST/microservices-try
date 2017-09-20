@@ -12,7 +12,7 @@ services:
     environment:
       CONFIG_URL: ${CONFIG_URL}
       SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
-      AUTH_SERVICE: ${AUTH_SERVICE}
+      AUTH_SERVICE_URL: ${AUTH_SERVICE_URL}
     depends_on:
       - config
       - service-registry
@@ -32,7 +32,7 @@ services:
     environment:
         CONFIG_URL: ${CONFIG_URL}
         SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
-        AUTH_SERVICE: ${AUTH_SERVICE}
+        AUTH_SERVICE_URL: ${AUTH_SERVICE_URL}
   family-service:
     build: ./family-service
     restart: always
@@ -41,7 +41,7 @@ services:
     environment:
           CONFIG_URL: ${CONFIG_URL}
           SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
-          AUTH_SERVICE: ${AUTH_SERVICE}
+          AUTH_SERVICE_URL: ${AUTH_SERVICE_URL}
     depends_on:
       - config
       - service-registry
@@ -60,7 +60,7 @@ services:
       environment:
             CONFIG_URL: ${CONFIG_URL}
             SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
-            AUTH_SERVICE: ${AUTH_SERVICE}
+            AUTH_SERVICE_URL: ${AUTH_SERVICE_URL}
       depends_on:
         - config
         - service-registry
@@ -100,7 +100,7 @@ services:
     environment:
         CONFIG_URL: ${CONFIG_URL}
         SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
-        AUTH_SERVICE: ${AUTH_SERVICE}
+        AUTH_SERVICE_URL: ${AUTH_SERVICE_URL}
     depends_on:
       - config
       - service-registry
